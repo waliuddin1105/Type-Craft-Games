@@ -400,3 +400,89 @@ void mainMenu()
         break;
     }
 }
+
+void playGame() 
+{
+    char playerName[50];
+    char retMenu;
+    int level;
+    int gameChoice;
+       
+    printf(TEXT_BOLD COLOR_CYAN "\nGAMES:\n" COLOR_RESET TEXT_RESET);
+    printf("1. Letter Typing Game\n");
+    printf("2. Sentence Typing Game\n");
+    printf("3. Arthmetic Game\n");
+    printf(COLOR_CYAN "Enter your choice: " COLOR_RESET); 
+    scanf("%d", &gameChoice);
+	  
+    switch (gameChoice) {
+        case 1:
+        	printf(TEXT_BOLD COLOR_YELLOW "\nDIFFICULTY LEVEL:" COLOR_RESET TEXT_RESET);
+    		printf("\n1. Easy\n2. Medium\n3. Hard\n");
+    		printf(COLOR_MAGENTA "Enter your choice: " COLOR_RESET);
+    		scanf("%d", &level);
+
+    		printf("\nEnter Your Name: ");
+   			scanf("%s", playerName);
+    		printf("\nWELCOME, ");
+    		printf(TEXT_BOLD COLOR_BLUE "%s!\n" COLOR_RESET TEXT_RESET ,playerName);
+            LetterTypingGame(playerName, level);
+            break;
+        case 2:
+        	printf(TEXT_BOLD COLOR_YELLOW "\nDIFFICULTY LEVEL:" COLOR_RESET TEXT_RESET);
+    		printf("\n1. Easy\n2. Medium\n3. Hard\n");
+   			printf(COLOR_MAGENTA "Enter your choice: " COLOR_RESET);
+   			scanf("%d", &level);
+
+   			printf("\nEnter Your Name: ");
+   			scanf("%s", playerName);
+    		printf("\nWELCOME, ");
+    		printf(TEXT_BOLD COLOR_BLUE "%s !\n" COLOR_RESET TEXT_RESET ,playerName);
+            SentenceTypingGame(playerName, level);
+            break;
+        case 3:
+        	printf(TEXT_BOLD COLOR_YELLOW "\nDIFFICULTY LEVEL:" COLOR_RESET TEXT_RESET);
+   			printf("\n1. Easy\n2. Medium\n3. Hard\n");
+    		printf(COLOR_MAGENTA "Enter your choice: " COLOR_RESET);
+   			scanf("%d", &level);
+
+    		printf("\nEnter Your Name: ");
+   			scanf("%s", playerName);
+    		printf("\nWELCOME, ");
+    		printf(TEXT_BOLD COLOR_BLUE "%s !\n" COLOR_RESET TEXT_RESET ,playerName);
+            ArithmeticGame(playerName, level);            
+            break;
+        default:
+            printf("\nInvalid choice!\n");
+            printf(TEXT_BOLD COLOR_YELLOW "\n\nReturn To the main menu y/n:" COLOR_RESET TEXT_RESET);
+            scanf(" %c", &retMenu);
+
+        if(retMenu == 'y') 
+        {
+        	mainMenu();
+		}
+		else {
+		exit(0);
+        }
+        break;
+    }
+}
+
+int main() 
+{
+    int re;
+    do 
+	{
+        mainMenu();
+        printf("\n\nDo you want to play again ? (y/n): ");
+        scanf(" %c", &re);
+    }
+    while(re != 'n');
+
+    if(re == 'n')
+	{
+        exit(0);
+        return 0;
+    }
+    return 0;
+}
