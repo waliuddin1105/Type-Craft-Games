@@ -46,7 +46,6 @@ It offers a diverse range of gameplay modes — from typing single letters and w
 
 <ol>
   <li><strong>Letter Typing Challenge</strong> – Type the displayed letter as fast as you can.</li>
-  <li><strong>Word Typing Challenge</strong> – Quickly type random words.</li>
   <li><strong>Sentence Builder</strong> – Type complete sentences correctly under pressure.</li>
   <li><strong>Math Challenge</strong> – Solve basic arithmetic problems by typing the correct answer.</li>
 </ol>
