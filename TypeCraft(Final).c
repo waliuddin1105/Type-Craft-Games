@@ -240,3 +240,98 @@ void SentenceTypingGame(char *playerName, int level) {
     float accuracy = (float)score / i * 100;
     printf("\nYour typing accuracy is %.2f" COLOR_RESET  ,accuracy);
 }
+
+void ArithmeticGame(char *playerName, int level) {
+
+    int seconds;
+    switch (level) {
+        case 1:
+            seconds = 7;
+            printf(TEXT_BOLD COLOR_GREEN "LEVEL:"COLOR_GREEN" EASY" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type the answer.\n", seconds);
+            sleep(2);
+            break;
+        case 2:
+            seconds = 3;
+            printf(TEXT_BOLD COLOR_ORANGE"LEVEL: MEDIUM" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type the answer.\n", seconds);
+            sleep(3);
+            break;
+        case 3:
+            seconds = 2;
+            printf(TEXT_BOLD COLOR_RED "LEVEL: HARD" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type the answer.\n", seconds);
+            sleep(3);
+            break;
+        default:
+            seconds = 10;
+            printf("Wrong Input, Defaulting to\n");
+            printf(TEXT_BOLD COLOR_GREEN "LEVEL:"COLOR_GREEN" EASY" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type the answer.\n", seconds);
+            sleep(4);
+            break;
+        }
+
+        int score = 0;
+        int lives = 3;
+        int i = 0;
+
+        while (lives > 0) {        
+        disp_features(playerName, level, score, lives);
+        srand(time(NULL));
+        int a = rand() % 20; 
+        int b = rand() % 12;
+        char operators[3] = {'+', '-', '*'};
+        char operator = operators[rand() % 3];
+
+        printf(TEXT_BOLD "\nWhat is %d %c %d?\n" TEXT_RESET ,a, operator, b);
+
+        int result;
+        switch (operator)
+		{
+            case '+':
+                result = a + b;
+                break;
+            case '-':
+                result = a - b;
+                break;
+            case '*':
+                result = a * b;
+                break;
+            default:
+                break;
+        }
+    
+        time_t startTime = time(NULL);
+        int userAnswer;
+        printf("\nAnswer: ");
+        scanf("%d", &userAnswer);
+        time_t endTime = time(NULL);
+        int GuessTime = difftime(endTime, startTime);
+
+        if (userAnswer == result && GuessTime <= seconds) {
+            printf(COLOR_GREEN "\nCorrect! +2 points :)\n" COLOR_RESET);
+            score = score + 2;
+        } 
+        else if (userAnswer != result) {
+            printf(COLOR_RED "\nWrong answer! You lost a life :(\n" COLOR_RESET);
+            lives = lives - 1;
+        }
+        else if (GuessTime > seconds) {
+            printf(COLOR_RED "\nYou guessed late! You lost a life :(\n" COLOR_RESET);
+            lives = lives - 1;
+        }
+
+        sleep(1);
+        i = i + 2;
+    }
+	disp_features(playerName, level, score, lives);
+    if (lives == 0)
+		{
+            printf("\n\n-------------------------------------------------------------------------------------------------------");
+            printf(TEXT_BOLD COLOR_RED "\n\n\t\t\t\t\tGame Over! You've ran out of lives.\n" COLOR_RESET TEXT_RESET);
+        }
+    printf(COLOR_GREEN "\nYour final score: %d", score);
+    float accuracy = (float)score / i * 100;
+    printf("\nYour guessing accuracy is %.2f" COLOR_RESET  ,accuracy);
+}
