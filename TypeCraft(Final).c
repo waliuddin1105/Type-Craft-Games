@@ -3,7 +3,7 @@
 #include<string.h>
 #include<time.h>
 #include<windows.h>
-#include<unistd.h>
+#include <unistd.h>
 
 #define COLOR_RED     "\x1b[31m"
 #define COLOR_GREEN   "\x1b[32m"
@@ -17,6 +17,7 @@
 #define TEXT_BOLD "\033[1m"
 #define TEXT_RESET "\033[0m"
 
+void playGame();
 void disp_features(char *playerName, int level, int score, int lives)
 {
 	system("cls");
