@@ -335,3 +335,68 @@ void ArithmeticGame(char *playerName, int level) {
     float accuracy = (float)score / i * 100;
     printf("\nYour guessing accuracy is %.2f" COLOR_RESET  ,accuracy);
 }
+void displayInstructions() {
+    system ("cls");
+    FILE *filePointer;
+    char ch;
+
+    filePointer = fopen("game_instructions.txt", "r");
+
+    if (filePointer == NULL)
+	{
+        printf("Unable to open the file.\n");
+        return;
+    }
+
+    printf("--------------------------------------------------------------GAME INSTRUCTIONS--------------------------------------------------------------\n\n\n");
+
+    while ((ch = fgetc(filePointer)) != EOF) {
+        printf("%c", ch);
+    }
+
+    printf("\n");
+
+    fclose(filePointer);
+}
+
+void mainMenu() 
+{
+    system("cls");
+    int mainMenuChoice;
+    char returnMenu;
+    printf(TEXT_BOLD COLOR_CYAN "\n\n\t\t\t\t\tTYPECRAFT: WORD & MATH ADVENTURES\n\n" COLOR_RESET TEXT_RESET);
+    printf(COLOR_GREEN "\n1. Play Game !\n" COLOR_RESET);
+    printf(COLOR_RED "2. Instructions.\n" COLOR_RESET);
+    printf("Enter your choice: ");
+    scanf("%d", &mainMenuChoice);
+    switch (mainMenuChoice) {
+    case 1:
+        playGame();
+        break;
+    case 2:
+        displayInstructions();
+        printf(TEXT_BOLD COLOR_YELLOW"\n\nReturn To the main menu y/n:"COLOR_RESET TEXT_RESET);
+        scanf(" %c", &returnMenu);
+        
+        if(returnMenu == 'y')
+        {
+        	mainMenu();
+		}
+		else {
+		exit(0);
+        }
+        break;
+    default:
+        printf("\nInvalid choice!\n");
+        printf(COLOR_YELLOW"\nDo you want to restart y/n:"COLOR_RESET);
+        scanf(" %c", &returnMenu);
+        if(returnMenu == 'y')
+        {
+        	mainMenu();
+		}
+		else {
+		exit(0);
+        }
+        break;
+    }
+}
