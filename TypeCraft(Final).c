@@ -160,5 +160,83 @@ void SentenceTypingGame(char *playerName, int level) {
 		"In the quiet alley, shadows played on walls. A flickering streetlamp and prowling cat added mystery. Distant footsteps echoed, creating an enigmatic ambiance in the heart of the night."		
     };
 
+    int seconds;
+    switch (level)
+	{
+        case 1:
+            seconds = 40;
+            printf(TEXT_BOLD COLOR_GREEN "LEVEL:"COLOR_GREEN" EASY" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type each sentence.\n", seconds);
+            sleep(3);
+            break;
+        case 2:
+            seconds = 32;
+            printf(TEXT_BOLD COLOR_ORANGE"LEVEL: MEDIUM" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type each sentence.\n", seconds);
+            sleep(3);
+            break;
+        case 3:
+            seconds = 25;
+            printf(TEXT_BOLD COLOR_RED "LEVEL: HARD" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type each sentence.\n", seconds);
+            sleep(3);
+            break;
+        default:
+            seconds = 40;
+            printf("Wrong Input, Defaulting to\n");
+            printf(TEXT_BOLD COLOR_GREEN "LEVEL:"COLOR_GREEN" EASY" TEXT_RESET COLOR_RESET);
+            printf("\nYou will have %d seconds to type each sentence.\n", seconds);
+            sleep(4);
+            break;
+        }
 
+        int score = 0;
+        int lives = 3;
+        int i = 0;
+
+    while (lives > 0)
+	{        
+        srand(time(NULL));
+        int randomIndex = rand() % 46;
+        char sentence[700];
+        strcpy(sentence, sentences[randomIndex]);
+
+        disp_features(playerName, level, score, lives);
+        printf(TEXT_BOLD "\nType this sentence:\n\n%s\n" TEXT_RESET ,sentence);
+        
+        time_t startTime = time(NULL);
+        char userSentence[700];
+        printf("\n");
+        scanf(" %[^\n]s", userSentence);
+        userSentence[strcspn(userSentence, "\n")] = '\0';
+        time_t endTime = time(NULL);
+        int GuessTime = difftime(endTime, startTime);
+
+        if (strcmp(userSentence, sentence) == 0 && GuessTime <= seconds) {
+            printf(COLOR_GREEN "\nCorrect! +5 points :)\n" COLOR_RESET);
+            score = score + 5;
+            }
+
+        else if (strcmp(userSentence, sentence) != 0){
+            printf(COLOR_RED "\nWrong Sentence! You lost a life :(\n" COLOR_RESET);
+            lives = lives - 1;
+            }
+         
+        else if (GuessTime > seconds) {
+            printf(COLOR_RED "\nYou did not type within the time limit! You lost a life :(\n" COLOR_RESET);
+            lives = lives - 1;
+        }
+
+        sleep(2);
+        i = i + 5;
+    }
+		disp_features(playerName, level, score, lives);
+    if (lives == 0)
+		{
+            printf("\n\n-------------------------------------------------------------------------------------------------------");
+            printf(TEXT_BOLD COLOR_RED "\n\n\t\t\t\t\tGame Over! You've ran out of lives.\n" COLOR_RESET TEXT_RESET);
+        }
+    printf(COLOR_GREEN "\nYour final score: %d", score);
+    float accuracy = (float)score / i * 100;
+    printf("\nYour typing accuracy is %.2f" COLOR_RESET  ,accuracy);
 }
